@@ -8,10 +8,9 @@ level.of.stdout                   1    # default=1 (1-3)
 level.of.fileout                  0    # default=1 (0-2)
 DATA.PATH                         ../../../openmx3.8/DFT_DATA13
 
-NEGF.output_hks    on
+NEGF.output_hks    off
 NEGF.filename.hks  lead-chain.hks
 NEGF.Output.for.TranMain    off 
-
 NEGF.tran.energydiv        200       # default=200
 NEGF.tran.energyrange -10 10 1.0e-3  # default=-10.0 10.0 5.0e-3 (eV)
 NEGF.tran.Kgrid            1 1       # default= 1 1
@@ -50,14 +49,14 @@ Atoms.UnitVectors>
 # SCF or Electronic System
 #
 
-scf.XcType                  LDA        # LDA|LSDA-CA|LSDA-PW|GGA-PBE
+scf.XcType                  GGA-PBE        # LDA|LSDA-CA|LSDA-PW|GGA-PBE
 scf.SpinPolarization        off        # On|Off|NC
-scf.ElectronicTemperature  600.0       # default=300 (K)
+scf.ElectronicTemperature  300.0       # default=300 (K)
 scf.energycutoff           180.0       # default=150 (Ry)
-scf.maxIter                100         # default=40
+scf.maxIter                200         # default=40
 scf.EigenvalueSolver       Band        # DC|GDC|Cluster|Band
 scf.lapack.dste            dstevx      # dstegr|dstedc|dstevx, default=dstegr
-scf.Kgrid                 200 1 1      # means n1 x n2 x n3
+scf.Kgrid                 9 1 9      # means n1 x n2 x n3
 scf.Mixing.Type           rmm-diisk    # Simple|Rmm-Diis|Gr-Pulay|Kerker|Rmm-Diisk
 scf.Init.Mixing.Weight     0.010       # default=0.30
 scf.Min.Mixing.Weight      0.001       # default=0.001
@@ -70,24 +69,29 @@ scf.criterion             1.0e-10      # default=1.0e-6 (Hartree)
 # MD or Geometry Optimization
 #
 
-MD.Type               Nomd  # Opt|EF|BFGS|RF|DIIS
+MD.Type               Opt  # Opt|EF|BFGS|RF|DIIS
 MD.Opt.DIIS.History   6     # default=3
 MD.Opt.StartDIIS      7     # default=5
 MD.Opt.EveryDIIS      6     # default=10
 MD.maxIter            200   #
-MD.Opt.criterion    1.0e-4  # default=1.0e-4 (a.u.)
+MD.Opt.criterion    1.0e-9  # default=1.0e-4 (a.u.)
 
 
 #
 # Band dispersion 
 #
 
-Band.dispersion              off      # on|off, default=off
+Band.dispersion              on      # on|off, default=off
 # if <Band.KPath.UnitCell does not exist,
 #     the reciprical lattice vector is employed. 
-Band.Nkpath                1
+Band.Nkpath                6
 <Band.kpath                
-   20  0.0 0.0 0.0   0.5 0.0 0.0   G X
+   120  0.0 0.0 0.0   0.0 0.5 0.5   G X
+   120  0.0 0.5 0.5   0.25 .75 .5   X W
+   120  .25 .75 .5    .5 .5 .5      W L
+   120  .5 .5 .5      0 0 0         L G
+   120  0 0 0         .375 .750 .375 G K
+   120  .375 .750 .375   0 .5 .5 K X
 Band.kpath>
 
 
@@ -95,9 +99,9 @@ Band.kpath>
 # DOS and PDOS
 #
 
-Dos.fileout                  off       # on|off, default=off
+Dos.fileout                  on       # on|off, default=off
 Dos.Erange              -15.0  25.0   # default = -20 20
-Dos.Kgrid                600 1  1      # default = Kgrid1 Kgrid2 Kgrid3
+Dos.Kgrid                9 1 9      # default = Kgrid1 Kgrid2 Kgrid3
 
 DosGauss.fileout      off
 DosGauss.Num.Mesh    4000

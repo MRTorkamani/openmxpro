@@ -8,10 +8,9 @@ level.of.stdout                   1    # default=1 (1-3)
 level.of.fileout                  0    # default=1 (0-2)
 DATA.PATH                         ../../../openmx3.8/DFT_DATA13
 
-NEGF.output_hks    on
+NEGF.output_hks    off
 NEGF.filename.hks  lead-chain.hks
 NEGF.Output.for.TranMain    off 
-
 NEGF.tran.energydiv        200       # default=200
 NEGF.tran.energyrange -10 10 1.0e-3  # default=-10.0 10.0 5.0e-3 (eV)
 NEGF.tran.Kgrid            1 1       # default= 1 1
@@ -33,11 +32,11 @@ Definition.of.Atomic.Species>
 Atoms.Number        5
 Atoms.SpeciesAndCoordinates.Unit   Ang # Ang|AU
 <Atoms.SpeciesAndCoordinates 
-   1    C    0.00000000000000    1.94800000000000    0.00000000000000     2.0     2.0
-   2    C    1.12500000000000    3.89700000000000    0.00000000000000     2.0     2.0
-   3    C    3.37500000000000    3.89700000000000    0.00000000000000     2.0     2.0
-   4    C    1.12500000000000    0.00000000000000    0.00000000000000     2.0     2.0
-   5    C    3.37500000000000    0.00000000000000    0.00000000000000     2.0     2.0
+   1    C    0.00161859300216    1.94793249790166   -0.00000000538251     2.0     2.0
+   2    C    0.71013650141684    4.39545693213650    0.00000001372736     2.0     2.0
+   3    C    4.69981178533320    3.21108623086756   -0.00000001624402     2.0     2.0
+   4    C   -0.19741870410848    0.68482992089864    0.00000000918772     2.0     2.0
+   5    C    3.78172086575810   -0.49494860026617    0.00000003054379     2.0     2.0
 Atoms.SpeciesAndCoordinates>
 Atoms.UnitVectors.Unit  AU
 <Atoms.UnitVectors
@@ -50,14 +49,14 @@ Atoms.UnitVectors>
 # SCF or Electronic System
 #
 
-scf.XcType                  LDA        # LDA|LSDA-CA|LSDA-PW|GGA-PBE
+scf.XcType                  GGA-PBE        # LDA|LSDA-CA|LSDA-PW|GGA-PBE
 scf.SpinPolarization        off        # On|Off|NC
-scf.ElectronicTemperature  600.0       # default=300 (K)
+scf.ElectronicTemperature  300.0       # default=300 (K)
 scf.energycutoff           180.0       # default=150 (Ry)
-scf.maxIter                100         # default=40
+scf.maxIter                200         # default=40
 scf.EigenvalueSolver       Band        # DC|GDC|Cluster|Band
 scf.lapack.dste            dstevx      # dstegr|dstedc|dstevx, default=dstegr
-scf.Kgrid                 200 1 1      # means n1 x n2 x n3
+scf.Kgrid                 9 1 9      # means n1 x n2 x n3
 scf.Mixing.Type           rmm-diisk    # Simple|Rmm-Diis|Gr-Pulay|Kerker|Rmm-Diisk
 scf.Init.Mixing.Weight     0.010       # default=0.30
 scf.Min.Mixing.Weight      0.001       # default=0.001
@@ -70,24 +69,29 @@ scf.criterion             1.0e-10      # default=1.0e-6 (Hartree)
 # MD or Geometry Optimization
 #
 
-MD.Type               Nomd  # Opt|EF|BFGS|RF|DIIS
+MD.Type               Opt  # Opt|EF|BFGS|RF|DIIS
 MD.Opt.DIIS.History   6     # default=3
 MD.Opt.StartDIIS      7     # default=5
 MD.Opt.EveryDIIS      6     # default=10
 MD.maxIter            200   #
-MD.Opt.criterion    1.0e-4  # default=1.0e-4 (a.u.)
+MD.Opt.criterion    1.0e-9  # default=1.0e-4 (a.u.)
 
 
 #
 # Band dispersion 
 #
 
-Band.dispersion              off      # on|off, default=off
+Band.dispersion              on      # on|off, default=off
 # if <Band.KPath.UnitCell does not exist,
 #     the reciprical lattice vector is employed. 
-Band.Nkpath                1
+Band.Nkpath                6
 <Band.kpath                
-   20  0.0 0.0 0.0   0.5 0.0 0.0   G X
+   120  0.0 0.0 0.0   0.0 0.5 0.5   G X
+   120  0.0 0.5 0.5   0.25 .75 .5   X W
+   120  .25 .75 .5    .5 .5 .5      W L
+   120  .5 .5 .5      0 0 0         L G
+   120  0 0 0         .375 .750 .375 G K
+   120  .375 .750 .375   0 .5 .5 K X
 Band.kpath>
 
 
@@ -95,9 +99,9 @@ Band.kpath>
 # DOS and PDOS
 #
 
-Dos.fileout                  off       # on|off, default=off
+Dos.fileout                  on       # on|off, default=off
 Dos.Erange              -15.0  25.0   # default = -20 20
-Dos.Kgrid                600 1  1      # default = Kgrid1 Kgrid2 Kgrid3
+Dos.Kgrid                9 1 9      # default = Kgrid1 Kgrid2 Kgrid3
 
 DosGauss.fileout      off
 DosGauss.Num.Mesh    4000
@@ -107,7 +111,10 @@ DosGauss.Width      0.01
 scf.restart    on
 
 
+geoopt.restart    on
+
+
 scf.fixed.grid    -0.73226882057433  -15.09866801726065   -4.13377560001639
 
 
-MD.Current.Iter   1
+MD.Current.Iter  200
