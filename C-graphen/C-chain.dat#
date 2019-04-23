@@ -32,14 +32,14 @@ Definition.of.Atomic.Species>
 Atoms.Number        2
 Atoms.SpeciesAndCoordinates.Unit   Ang # Ang|AU
 <Atoms.SpeciesAndCoordinates 
- 1  C  1.64  0.82  0.000  2.0 2.0
- 2  C  0.82  1.64  0.000  2.0 2.0
+   1    C    1.84376324373310    0.87581159940627   -0.00000000191914     2.0     2.0
+   2    C    0.61623674893760    1.58418838884603   -0.00000000203051     2.0     2.0
 Atoms.SpeciesAndCoordinates>
-Atoms.UnitVectors.Unit             Ang # Ang|AU
-<Atoms.UnitVectors                     
-   2.46   0.0    0.0  
-  -1.23   2.13   0.0  
-   0.0   0.0    10  
+Atoms.UnitVectors.Unit  AU
+<Atoms.UnitVectors
+  4.648725931904151   0.000000000000000   0.000000000000000 
+ -2.324362965952075   4.025116355673107   0.000000000000000 
+  0.000000000000000   0.000000000000000  18.897259885789232 
 Atoms.UnitVectors>
 
 #
@@ -103,3 +103,15 @@ Dos.Kgrid                8 8 1      # default = Kgrid1 Kgrid2 Kgrid3
 DosGauss.fileout      off
 DosGauss.Num.Mesh    4000
 DosGauss.Width      0.01
+
+
+scf.restart    on
+
+
+geoopt.restart    on
+
+
+scf.fixed.grid     1.22674712091915    0.42361357577311   -9.33198019051320
+
+
+MD.Current.Iter  38
