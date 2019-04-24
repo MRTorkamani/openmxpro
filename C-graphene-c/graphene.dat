@@ -65,7 +65,7 @@ MD.Opt.DIIS.History 6 # default=3
 MD.Opt.StartDIIS 7 # default=5
 MD.Opt.EveryDIIS 6 # default=10
 MD.maxIter 200 #
-MD.Opt.criterion 1.0e-4 # default=1.0e-4 (a.u.)
+MD.Opt.criterion 1.0e-6 # default=1.0e-4 (a.u.)
 
 
 #
@@ -75,10 +75,11 @@ MD.Opt.criterion 1.0e-4 # default=1.0e-4 (a.u.)
 Band.dispersion on # on|off, default=off
 # if <Band.KPath.UnitCell does not exist,
 # the reciprical lattice vector is employed.
-Band.Nkpath 2
+Band.Nkpath 3
 <Band.kpath
-600 0.0 0.0 0.0 0.3332926829239024 0.0 0.0 G P'
-600 0.3332926829239024 0.0 0.0 0.5 0.0 0.0 P' X
+100 0.0 0.0 0.0 0.66666666666 0.33333333333 0.0 G K
+100 0.66666666666 0.33333333333 0.0 0.5 0.0 0.0 K M
+100 0.5 0.0 0.0 0.0 0.0 0.0 M G
 Band.kpath>
 
 #
